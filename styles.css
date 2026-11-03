@@ -108,3 +108,55 @@ dialog{background:#fff;border-radius:0;box-shadow:0 30px 100px #252A3233}dialog:
 .company-legal>a:hover{color:var(--accent)}
 .company-legal p{margin-top:11px;font-size:12px}
 @media(max-width:680px){.company-footer{padding:35px 0 110px}.company-map{height:200px;margin-bottom:24px}.company-information p{font-size:12px}.company-notice{max-width:340px;margin:auto}.company-address{display:flex;flex-direction:column;gap:3px;margin-top:15px}.address-divider{display:none}.company-address strong{font-size:14px}.map-link{font-size:12px;margin-top:11px}.company-contacts{display:grid;gap:13px;justify-content:center;text-align:left;font-size:12px;margin-top:23px}.company-contacts svg{width:17px;height:17px}.company-legal{padding-top:23px;margin-top:26px}.company-legal p{font-size:10px;line-height:1.9}.company-legal p>span:last-child{display:block}}
+
+/* Chance hero: original cutout on the left, live copy on the right. */
+.hero-stage{background:#031122 url('assets/hero-background.png') center center/cover no-repeat}
+.hero-stage .hero{grid-template-columns:43% 57%;gap:0;min-height:720px;align-items:stretch}
+.hero-stage .hero-visual{grid-column:1;grid-row:1;margin:0;align-self:stretch}
+.hero-stage .portrait-frame{height:100%;min-height:720px;background:transparent;overflow:visible}
+.hero-stage .portrait-frame>img{position:absolute;inset:auto auto 0 50%;transform:translateX(-50%);width:auto;max-width:none;height:100%;object-fit:contain;object-position:bottom;mask-image:none;filter:none}
+.hero-stage .hero-copy{grid-column:2;grid-row:1;padding:76px 0 65px 28px;min-width:0}
+.hero-stage .hero-title{font-family:var(--serif);font-size:clamp(38px,4.2vw,64px);font-weight:700;line-height:1.45;letter-spacing:0}
+.hero-stage .accent-mark{color:#a9d9ff}
+.hero-stage .accent-mark:after{display:none}
+.hero-stage .hero-tagline{font-size:clamp(18px,1.9vw,27px);letter-spacing:.07em}
+.hero-stage .hero-actions{flex-direction:row;align-items:center;flex-wrap:wrap}
+.hero-stage .hero-actions .button{background:#a9d9ff;color:#152033;border:1px solid #a9d9ff}
+.hero-stage .hero-actions .button:hover{background:#d2ebff;border-color:#d2ebff}
+.hero-stage .hero-for{border-color:#a9bbd34d;color:#d5deeb;font-size:14px;margin-top:34px}
+.hero-stage .hero-for p{font-size:15px}
+.hero-stage .hero-footer{border-color:#a9bbd34d;background:#03112266}
+@media(min-width:681px) and (max-width:1050px){
+ .hero-stage .hero,.hero-stage .portrait-frame{min-height:620px}
+ .hero-stage .portrait-frame>img{height:90%}
+ .hero-stage .hero-copy{padding:52px 0 45px 12px}
+ .hero-stage .hero-title{font-size:clamp(29px,4.1vw,43px)}
+ .hero-stage .hero .eyebrow{font-size:8px;letter-spacing:.07em}
+ .hero-stage .hero-for p{font-size:12px}
+}
+@media(max-width:680px){
+ .hero-stage{background-position:58% center}
+ .hero-stage .hero{display:flex;flex-direction:column;min-height:0}
+ .hero-stage .hero-copy{padding:42px 0 28px;order:0}
+ .hero-stage .hero-title{font-size:clamp(29px,7.8vw,49px);margin-top:24px;line-height:1.45}
+ .hero-stage .hero-tagline{font-size:17px;margin-top:19px;letter-spacing:.03em}
+ .hero-stage .hero-actions{gap:22px;margin-top:25px}
+ .hero-stage .hero-for{margin-top:26px;padding-top:18px;font-size:12px}
+ .hero-stage .hero-for p{font-size:12px}
+ .hero-stage .hero-visual{order:1;margin:0;align-self:stretch}
+ .hero-stage .portrait-frame{height:auto;min-height:0;display:flex;justify-content:center;overflow:hidden}
+ .hero-stage .portrait-frame>img{position:static;transform:none;height:auto;width:100%;max-width:350px;display:block}
+}
+
+/* Fixed-width reels keep the result strip steady while digits roll. */
+.stat-number{display:inline-flex;vertical-align:baseline;font-variant-numeric:tabular-nums;letter-spacing:-.05em}
+.stat-reel{display:inline-block;height:1em;width:.65em;overflow:hidden;position:relative;top:.08em}
+.stat-track{display:block;transform:translateY(calc(var(--stop) * -1em))}
+.stat-digit{display:block;height:1em;line-height:1;text-align:center}
+
+/* One shared blue selection moves between the five equal-width tabs. */
+.journey{position:relative;isolation:isolate;--active-stage:0}
+.journey:before{content:'';position:absolute;inset:0 auto 0 0;width:20%;background:var(--accent);transform:translateX(calc(var(--active-stage) * 100%));transition:transform .3s ease;pointer-events:none;z-index:-1}
+.journey button,.journey button[aria-selected=true]{background:transparent;transition:color .3s ease,border-color .3s ease}
+.journey button small,.journey button>span,.journey button:after{transition:color .3s ease}
+@media(prefers-reduced-motion:reduce){.journey:before,.journey button,.journey button small,.journey button>span,.journey button:after{transition:none}}

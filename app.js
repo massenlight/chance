@@ -12,7 +12,7 @@ const stages=[
  ['成交之後，關係才有機會走得更遠。','持續分享有用的內容，關心客戶的使用與服務體驗。讓滿意的客戶，有理由回來，也願意介紹朋友。','客戶經營 × 回購轉介']
 ];
 const tabs=[...document.querySelectorAll('[data-stage]')];
-function selectStage(index,focus=false){tabs.forEach((t,i)=>{t.setAttribute('aria-selected',String(i===index));t.tabIndex=i===index?0:-1});document.querySelector('#stage-title').textContent=stages[index][0];document.querySelector('#stage-description').textContent=stages[index][1];document.querySelector('#stage-label').textContent=stages[index][2];document.querySelector('#journey-panel').setAttribute('aria-labelledby',`stage-${index}`);if(focus)tabs[index].focus()}
+function selectStage(index,focus=false){document.querySelector('.journey').style.setProperty('--active-stage',index);tabs.forEach((t,i)=>{t.setAttribute('aria-selected',String(i===index));t.tabIndex=i===index?0:-1});document.querySelector('#stage-title').textContent=stages[index][0];document.querySelector('#stage-description').textContent=stages[index][1];document.querySelector('#stage-label').textContent=stages[index][2];document.querySelector('#journey-panel').setAttribute('aria-labelledby',`stage-${index}`);if(focus)tabs[index].focus()}
 tabs.forEach((tab,index)=>{tab.addEventListener('click',()=>selectStage(index));tab.addEventListener('keydown',event=>{let next=index;if(event.key==='ArrowRight')next=(index+1)%tabs.length;else if(event.key==='ArrowLeft')next=(index+tabs.length-1)%tabs.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=tabs.length-1;else return;event.preventDefault();selectStage(next,true)})});
 const topics={
  '推薦':['手機推薦','「長輩適合哪一種手機？」','從使用者的日常需求切入，比單純介紹規格更有感。'],
@@ -44,3 +44,64 @@ let heroVisible=true,enrollVisible=false;
 const updateBar=()=>mobileBar.classList.toggle('visible',!heroVisible&&!enrollVisible);
 if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.target===hero)heroVisible=entry.isIntersecting;if(entry.target===enrollment)enrollVisible=entry.isIntersecting});updateBar()});observer.observe(hero);observer.observe(enrollment)}
 document.querySelector('#year').textContent=new Date().getFullYear();
+
+// Roll each proof digit once when its result enters the viewport.
+const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+if(!reducedMotion.matches && 'IntersectionObserver' in window){
+ const reelObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+   if(!entry.isIntersecting)return;
+   reelObserver.unobserve(entry.target);
+   if(reducedMotion.matches)return;
+   const number=entry.target;
+   number.setAttribute('role','img');
+   number.setAttribute('aria-label',number.dataset.value);
+   number.replaceChildren();
+   [...number.dataset.value].forEach((character,index)=>{
+    const reel=document.createElement('span');
+    reel.setAttribute('aria-hidden','true');
+    if(!/\d/.test(character)){reel.textContent=character;number.append(reel);return;}
+    reel.className='stat-reel';
+    const track=document.createElement('span');
+    track.className='stat-track';
+    const stop=20+Number(character);
+    track.style.setProperty('--stop',stop);
+    for(let i=0;i<=stop;i++){
+     const digit=document.createElement('span');
+     digit.className='stat-digit';digit.textContent=i%10;track.append(digit);
+    }
+    reel.append(track);number.append(reel);
+    const animation=track.animate([{transform:'translateY(0)'},{transform:`translateY(-${stop}em)`}],{duration:1500+index*180,easing:'cubic-bezier(.15,.7,.2,1)',fill:'backwards'});
+    const stopMotion=()=>{if(reducedMotion.matches)animation.finish()};
+    reducedMotion.addEventListener('change',stopMotion);
+    animation.finished.finally(()=>reducedMotion.removeEventListener('change',stopMotion));
+   });
+  });
+ },{threshold:.65});
+ document.querySelectorAll('.proof-stat .stat-number').forEach(number=>reelObserver.observe(number));
+}
+
+// Cycle the journey while visible; pause while visitors read or interact.
+const journey=document.querySelector('.journey');
+let journeyTimer;
+let journeyVisible=false;
+function restartJourney(){
+ clearInterval(journeyTimer);
+ if(!journeyVisible || document.hidden || reducedMotion.matches || journey.matches(':hover') || journey.contains(document.activeElement))return;
+ journeyTimer=setInterval(()=>{
+  const current=tabs.findIndex(tab=>tab.getAttribute('aria-selected')==='true');
+  selectStage((current+1)%tabs.length);
+ },3000);
+}
+if('IntersectionObserver' in window){
+ new IntersectionObserver(entries=>{
+  journeyVisible=entries[0].isIntersecting;
+  restartJourney();
+ },{threshold:.5}).observe(journey);
+}
+journey.addEventListener('mouseenter',restartJourney);
+journey.addEventListener('mouseleave',restartJourney);
+journey.addEventListener('focusin',restartJourney);
+journey.addEventListener('focusout',()=>setTimeout(restartJourney,0));
+document.addEventListener('visibilitychange',restartJourney);
+reducedMotion.addEventListener('change',restartJourney);
