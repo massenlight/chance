@@ -160,3 +160,127 @@ dialog{background:#fff;border-radius:0;box-shadow:0 30px 100px #252A3233}dialog:
 .journey button,.journey button[aria-selected=true]{background:transparent;transition:color .3s ease,border-color .3s ease}
 .journey button small,.journey button>span,.journey button:after{transition:color .3s ease}
 @media(prefers-reduced-motion:reduce){.journey:before,.journey button,.journey button small,.journey button>span,.journey button:after{transition:none}}
+
+/* Mobile reference layout. Desktop rules and interaction code stay intact. */
+@media(max-width:680px){
+ .shell{padding-left:22px;padding-right:22px}
+ .section{padding-top:56px;padding-bottom:56px}
+ .site-header{height:64px}
+ .nav-wrap{padding:0 18px;gap:10px}
+ .brand{font-size:16px;gap:8px}
+ .brand-icon{width:29px;height:29px}
+ .nav-cta{padding:11px 13px;font-size:10px}
+ .menu-toggle{display:none}
+ .site-header nav{top:64px}
+ .hero-stage{background-position:55% center}
+ .hero-stage .hero{display:grid;grid-template-columns:62% 38%;min-height:320px;padding:0 18px}
+ .hero-stage .hero-copy{grid-column:1;grid-row:1;padding:28px 0 24px;justify-content:flex-start}
+ .hero-stage .hero .eyebrow{font-size:6px;letter-spacing:.09em;gap:5px;white-space:nowrap}
+ .hero-stage .live-dot{width:4px;height:4px;flex:none}
+ .hero-stage .hero-title{font-size:clamp(21px,6vw,38px);line-height:1.5;margin-top:15px}
+ .hero-stage .hero-tagline{font-size:clamp(10px,2.8vw,17px);line-height:1.8;letter-spacing:0;margin-top:15px;white-space:nowrap}
+ .hero-stage .hero-actions{gap:12px;margin-top:20px;flex-wrap:nowrap}
+ .hero-stage .hero-actions .button{padding:11px 10px;font-size:9px;gap:10px}
+ .hero-stage .hero-actions .button span{font-size:14px}
+ .hero-stage .hero-actions .text-link{font-size:9px;gap:6px;padding:10px 0;white-space:nowrap}
+ .hero-stage .hero-for{margin-top:25px;padding-top:15px;font-size:9px;border-color:#a9bbd34d}
+ .hero-stage .hero-for>span{font-size:9px}
+ .hero-stage .hero-for p{font-size:8px;line-height:1.8;margin-top:7px;white-space:nowrap}
+ .hero-stage .hero-for i{margin:0 2px}
+ .hero-stage .hero-visual{grid-column:2;grid-row:1;margin:0 -18px 0 -18px;min-width:0;position:relative}
+ .hero-stage .portrait-frame{display:block;position:absolute;inset:0;height:100%;overflow:visible}
+ .hero-stage .portrait-frame>img{position:absolute;inset:auto auto 0 50%;transform:translateX(-50%);width:auto;max-width:none;height:100%;max-height:350px;object-fit:contain}
+ .hero-stage .hero-footer{padding:14px 18px;font-size:6px;gap:12px}
+ .hero-footer>span:last-child{font-size:5px;letter-spacing:.06em}
+ .proof-strip{padding:32px 0}
+ .proof-strip>.shell:first-child{gap:28px 0}
+ .proof-stat{padding-left:10px}
+ .proof-stat strong{font-size:clamp(23px,7.7vw,42px)}
+ .proof-stat em{font-size:10px}
+ .proof-stat>span,.proof-stat p{font-size:9px}
+ .chapter-label,.section-heading .chapter-label,.mentor-copy .chapter-label{font-size:20px;letter-spacing:0}
+ .chapter-centered{margin-bottom:38px}
+ .section-heading h2{font-size:28px}
+ .section-heading p{font-size:12px;line-height:1.9}
+ .journey{margin-top:30px}
+ .journey button{min-height:88px}
+ .journey-panel{padding:20px 16px;gap:12px}
+ .journey-panel h3{font-size:14px}
+ .journey-panel p{font-size:12px}
+ .problem{padding:48px 0}
+ .split-layout,.split-layout.reverse{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+ .problem-copy{display:contents}
+ .problem-number{grid-row:1;font-size:20px;margin-bottom:19px;gap:14px}
+ .problem-number span{font-size:14px;padding-left:14px}
+ .problem h2{grid-row:2;font-size:30px;line-height:1.45;margin-bottom:0}
+ .problem-copy>p,.question-list{display:none}
+ .solution{grid-row:3;margin-top:24px;margin-bottom:28px;padding-left:17px}
+ .solution h3{font-size:16px;line-height:1.7}
+ .solution p{font-size:12px;line-height:1.9}
+ .topic-demo,.case-scene,.conversion-demo{grid-row:4}
+ .problem-copy>.text-link{grid-row:5;justify-self:start;margin-top:19px;font-size:12px}
+ .topic-demo,.conversion-demo{padding:26px 20px}
+ .topic-demo h3{font-size:21px}
+ .topic-grid>button{min-height:78px}
+ .topic-result{min-height:0}
+ .topic-result strong{font-size:14px;line-height:1.8}
+ .case-scene{min-height:460px}
+ .phone-frame{width:215px}
+ .phone-frame>img{height:294px}
+ .scene-tag{right:12px;bottom:65px;padding:12px}
+ .scene-tag strong{font-size:12px}
+ .scene-tag small{font-size:8px}
+ .conversion-demo .demo-header{margin-bottom:20px}
+ .conversion-step{padding:24px 0}
+ .conversion-step strong{font-size:14px}
+ .conversion-note{display:none}
+ .curriculum-intro h2{font-size:37px}
+ .curriculum-intro h2 br:first-child{display:none}
+ .curriculum-intro h2>span{font-size:23px;margin-top:8px}
+ .curriculum-intro>p{font-size:12px}
+ .curriculum-intro>.cream-button{display:none}
+ .curriculum-list{margin-top:30px}
+ .curriculum-list summary{padding:24px 0;gap:17px}
+ .curriculum-list summary h3{font-size:17px}
+ .detail-content{font-size:12px}
+ .heading-row .chapter-label{text-align:center;margin-bottom:38px}
+ .heading-row>p{display:none}
+ .case-grid{margin-top:26px;gap:26px}
+ .case-image{height:215px}
+ #cases .case-card:first-child .case-image>img{object-position:center top}
+ .case-body{padding:24px}
+ .case-body h3{font-size:24px}
+ .case-body>p{font-size:12px}
+ .case-result strong{font-size:30px}
+ .case-button{font-size:12px}
+ .mentor-section{padding:40px 0;overflow:hidden}
+ .mentor-layout{display:grid;grid-template-columns:55% 45%;column-gap:0;row-gap:0;align-items:start}
+ .mentor-copy{display:contents}
+ .mentor-photo{grid-column:2;grid-row:1/5;align-self:stretch;height:auto;min-height:320px;background:transparent;overflow:visible;position:relative}
+ .mentor-photo>img{content:url('assets/chance-cutout.png');position:absolute;inset:auto auto 0 max(60%,calc(60% + (370px - 100vw)*.75));transform:translateX(-50%);width:auto;max-width:none;height:min(112%,100vw);max-height:none;object-fit:contain;filter:none;mask-image:linear-gradient(#000 90%,transparent)}
+ .mentor-copy .chapter-label{grid-column:1;grid-row:1;font-size:18px;margin:14px 0 10px;z-index:1}
+ .mentor-name{grid-column:1;grid-row:2;display:block;margin:0 0 12px;z-index:1}
+ .mentor-name strong{font-size:28px}
+ .mentor-name span{display:none}
+ .mentor-copy h2{grid-column:1;grid-row:3;font-size:23px;line-height:1.45;margin:0;z-index:1}
+ .mentor-statement{grid-column:1;grid-row:4;font-size:12px;line-height:1.8;margin-top:12px;padding-bottom:15px;z-index:1}
+ .mentor-copy>p:not(.mentor-statement){grid-column:1/-1;grid-row:5;font-size:12px;line-height:1.9;margin-top:22px}
+ .mentor-credentials{grid-column:1/-1;grid-row:6;font-size:11px;gap:9px;margin-top:20px;padding-top:19px}
+ .faq-intro h2{font-size:28px}
+ .faq-intro p{display:none}
+ .faq-list{margin-top:28px}
+ .faq-list summary{font-size:13px;padding:24px 0}
+ .enroll-section{padding:52px 0}
+ .enroll-section h2{font-size:39px}
+ .enroll-layout>div>p{display:none}
+ .enroll-tags{margin-top:25px;gap:0}
+ .enroll-tags>span{border:0;border-left:1px solid #ffffff66;padding:7px 16px;font-size:11px}
+ .enroll-card{margin-top:32px;padding:28px 24px}
+ .enroll-card h3{font-size:27px}
+ .company-footer{padding:32px 0}
+ .company-map{height:190px}
+ .company-information p{font-size:11px}
+ .company-contacts{font-size:11px}
+ .company-information>.map-link{display:none}
+ .mobile-bar{display:none}
+}
