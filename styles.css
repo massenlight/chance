@@ -284,3 +284,82 @@ dialog{background:#fff;border-radius:0;box-shadow:0 30px 100px #252A3233}dialog:
  .company-information>.map-link{display:none}
  .mobile-bar{display:none}
 }
+
+/* Case results lead into the three problems on every screen size. */
+.cases-heading .eyebrow{font-size:10px}
+.cases-heading h2{font-size:32px;line-height:1.5;margin-top:8px}
+.case-result .stat-number,.case-result .stat-reel,.case-result .stat-track,.case-result .stat-digit{font-size:inherit;color:inherit}
+@media(max-width:680px){.cases-heading h2{font-size:26px}}
+
+/* Emphasize case outcomes and image categories on desktop and mobile. */
+#cases .case-body>p{font-size:18px;font-weight:600;line-height:1.7;color:var(--ink);text-wrap:balance}
+#cases .case-image>span{font-size:18px;font-weight:600;text-shadow:0 1px 5px #0008}
+@media(max-width:680px){#cases .case-body>p,#cases .case-image>span{font-size:16px}}
+
+/* Compact case cards and the three business problems. */
+#cases .case-body>p{min-height:3.4em}
+#cases .case-result{margin-top:12px;padding-top:16px}
+#cases .case-button{margin-top:18px;padding-top:14px}
+.problem-story{padding:76px 0}
+.problem-story .problems-heading{font-size:34px;line-height:1.5;text-align:center;margin:0 0 60px;color:var(--ink)}
+.problem-story .split-layout{gap:64px;align-items:center}
+.problem-story .problem-copy{display:block}
+.problem-story .problem-copy h2{font-size:38px;line-height:1.5}
+.problem-story .problem-copy>p{display:block;font-size:16px;line-height:1.9;margin-top:24px}
+.problem-story .solution{margin:26px 0;padding-left:20px}
+.problem-story .solution h3{font-size:20px;line-height:1.6}
+.problem-story .solution p{font-size:16px;line-height:1.9;margin-top:10px}
+.problem-case{border-top:1px solid var(--line);padding-top:22px}
+.problem-case h3{font-size:20px;color:var(--accent);line-height:1.5}
+.problem-case p{font-size:16px;line-height:1.9;margin-top:10px;color:var(--muted)}
+.problem-visual{margin:0;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.problem-visual img{display:block;width:100%;height:auto;max-height:460px;object-fit:contain}
+@media(max-width:900px){.problem-story .split-layout{gap:32px}.problem-story .problem-copy h2{font-size:32px}}
+@media(max-width:680px){
+ #cases .case-body>p{min-height:0}
+ .problem-story{padding:48px 0}
+ .problem-story .problems-heading{font-size:26px;margin-bottom:38px}
+ .problem-story .split-layout,.problem-story .split-layout.reverse{display:flex;flex-direction:column;gap:28px;align-items:stretch}
+ .problem-story .problem-copy{order:0;min-width:0}
+ .problem-story .problem-copy h2{font-size:28px}
+ .problem-story .problem-copy>p{font-size:15px;margin-top:20px}
+ .problem-story .solution{margin:22px 0;padding-left:16px}
+ .problem-story .solution h3,.problem-case h3{font-size:18px}
+ .problem-story .solution p,.problem-case p{font-size:15px;line-height:1.85}
+ .problem-case{padding-top:20px}
+ .problem-visual{order:1}
+ .problem-visual img{max-height:400px}
+}
+
+/* Updated curriculum and transparent House123 image surround. */
+#problems .problem-visual{background:transparent}
+#curriculum .curriculum-intro h2{font-size:48px;line-height:1.4}
+#curriculum .curriculum-intro h2 br{display:initial}
+#curriculum .curriculum-list summary{align-items:flex-start}
+#curriculum .curriculum-list summary>span{padding-top:5px;flex-shrink:0}
+#curriculum .curriculum-list summary>div{min-width:0}
+#curriculum .curriculum-list summary h3{margin-top:0;line-height:1.65;text-wrap:balance}
+#curriculum .curriculum-list summary b{flex-shrink:0}
+.curriculum-coaching{margin-top:32px;padding:26px;border:1px solid #ffffff40;background:#ffffff08}
+.curriculum-coaching h3{font-size:20px;line-height:1.65}
+.curriculum-coaching p{font-size:15px;line-height:1.9;color:#DCE1E7;margin-top:12px}
+@media(max-width:680px){
+ #curriculum .curriculum-intro h2{font-size:34px}
+ #curriculum .curriculum-intro>p{font-size:15px;line-height:1.85}
+ #curriculum .detail-content{font-size:14px}
+ .curriculum-coaching{margin-top:24px;padding:22px 20px}
+ .curriculum-coaching h3{font-size:18px}
+ .curriculum-coaching p{font-size:14px}
+}
+
+/* Larger curriculum supporting text and enrollment topic labels. */
+#curriculum .curriculum-intro>p{font-size:20px;line-height:1.85}
+#curriculum .detail-content,#curriculum .curriculum-coaching p{font-size:17px;line-height:1.85}
+#enroll .enroll-tags{flex-wrap:wrap}
+#enroll .enroll-tags>span{font-size:18px;font-weight:500;padding:10px 18px}
+@media(max-width:680px){
+ #curriculum .curriculum-intro>p{font-size:18px}
+ #curriculum .detail-content,#curriculum .curriculum-coaching p{font-size:16px}
+ #enroll .enroll-tags{gap:8px}
+ #enroll .enroll-tags>span{font-size:16px;padding:9px 12px}
+}

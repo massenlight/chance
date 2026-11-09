@@ -45,13 +45,12 @@ const updateBar=()=>mobileBar.classList.toggle('visible',!heroVisible&&!enrollVi
 if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.target===hero)heroVisible=entry.isIntersecting;if(entry.target===enrollment)enrollVisible=entry.isIntersecting});updateBar()});observer.observe(hero);observer.observe(enrollment)}
 document.querySelector('#year').textContent=new Date().getFullYear();
 
-// Roll each proof digit once when its result enters the viewport.
+// Spin each result like staggered slot reels whenever it enters the viewport.
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 if(!reducedMotion.matches && 'IntersectionObserver' in window){
  const reelObserver=new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
    if(!entry.isIntersecting)return;
-   reelObserver.unobserve(entry.target);
    if(reducedMotion.matches)return;
    const number=entry.target;
    number.setAttribute('role','img');
@@ -64,21 +63,21 @@ if(!reducedMotion.matches && 'IntersectionObserver' in window){
     reel.className='stat-reel';
     const track=document.createElement('span');
     track.className='stat-track';
-    const stop=20+Number(character);
+    const stop=30+index*10+Number(character);
     track.style.setProperty('--stop',stop);
     for(let i=0;i<=stop;i++){
      const digit=document.createElement('span');
      digit.className='stat-digit';digit.textContent=i%10;track.append(digit);
     }
     reel.append(track);number.append(reel);
-    const animation=track.animate([{transform:'translateY(0)'},{transform:`translateY(-${stop}em)`}],{duration:1500+index*180,easing:'cubic-bezier(.15,.7,.2,1)',fill:'backwards'});
+    const animation=track.animate([{transform:'translateY(0)'},{transform:`translateY(-${stop}em)`}],{duration:2400+index*260,delay:index*100,easing:'cubic-bezier(.12,.65,.15,1)',fill:'backwards'});
     const stopMotion=()=>{if(reducedMotion.matches)animation.finish()};
     reducedMotion.addEventListener('change',stopMotion);
     animation.finished.finally(()=>reducedMotion.removeEventListener('change',stopMotion));
    });
   });
  },{threshold:.65});
- document.querySelectorAll('.proof-stat .stat-number').forEach(number=>reelObserver.observe(number));
+ document.querySelectorAll('.case-result .stat-number').forEach(number=>reelObserver.observe(number));
 }
 
 // Cycle the journey while visible; pause while visitors read or interact.
