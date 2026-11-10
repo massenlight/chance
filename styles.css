@@ -363,3 +363,10 @@ dialog{background:#fff;border-radius:0;box-shadow:0 30px 100px #252A3233}dialog:
  #enroll .enroll-tags{gap:8px}
  #enroll .enroll-tags>span{font-size:16px;padding:9px 12px}
 }
+
+/* Confirmed free in-person lecture: keep date and venue clear at every size. */
+.lecture-strip{display:flex;flex-wrap:wrap;gap:20px 48px;padding-top:22px;padding-bottom:26px;color:#e9ecf0;border-top:1px solid #ffffff26}
+.lecture-strip>div{display:grid;gap:6px}.lecture-strip strong{font-size:18px;line-height:1.6}.lecture-strip span{font-size:14px;line-height:1.7;color:#c6ced8}
+.lecture-details{margin:22px 0;text-align:left}.lecture-details>div{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.lecture-details dt{font-size:13px;color:var(--muted)}.lecture-details dd{margin:0;font-size:16px;font-weight:600;line-height:1.7;overflow-wrap:anywhere}.lecture-details dd span{font-size:14px;font-weight:400}
+@media(max-width:680px){.lecture-strip{gap:15px;padding-top:20px;padding-bottom:20px}.lecture-strip>div{flex-basis:100%}.lecture-strip strong{font-size:17px}.lecture-strip span{font-size:13px}.lecture-details dd{font-size:15px}.lecture-details dd span{font-size:13px}}
