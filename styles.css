@@ -483,3 +483,17 @@ dialog{background:#fff;border-radius:0;box-shadow:0 30px 100px #252A3233}dialog:
 .registration-fields .button{width:100%;margin-top:16px}
 #registration-form [hidden]{display:none!important}
 #registration-form .registration-status{line-height:1.8}
+
+/* Seminar copy revision: consolidate repeated sections, retain the registration card. */
+.copy-case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.copy-case-grid .case-image{height:260px}
+.copy-case-grid .case-image img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.copy-case-grid .case-result strong{font-size:36px}
+.copy-case-question{font-size:23px;font-weight:700;margin-top:32px;margin-bottom:12px;line-height:1.65}
+.copy-source{display:block;margin-top:22px;color:var(--muted);font-size:13px;line-height:1.8}
+.audience-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.enroll-layout .enroll-invitation>p{display:block;font-size:17px;margin-top:22px;line-height:1.9}
+.enroll-invitation .price-context{margin-top:0;font-size:20px}
+.enroll-invitation h3{font-size:27px;line-height:1.6;margin-top:32px}
+.enroll-layout .enroll-invitation .invitation-last{font-size:23px;font-weight:700}
+@media(max-width:680px){.copy-case-grid,.audience-grid{grid-template-columns:1fr}.copy-case-grid .case-image{height:230px}.copy-case-question{font-size:20px}.enroll-layout .enroll-invitation>p{font-size:16px}.enroll-invitation h3{font-size:23px}.enroll-layout .enroll-invitation .invitation-last{font-size:20px}}
