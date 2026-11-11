@@ -370,3 +370,39 @@ dialog{background:#fff;border-radius:0;box-shadow:0 30px 100px #252A3233}dialog:
 .lecture-details{margin:22px 0;text-align:left}.lecture-details>div{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
 .lecture-details dt{font-size:13px;color:var(--muted)}.lecture-details dd{margin:0;font-size:16px;font-weight:600;line-height:1.7;overflow-wrap:anywhere}.lecture-details dd span{font-size:14px;font-weight:400}
 @media(max-width:680px){.lecture-strip{gap:15px;padding-top:20px;padding-bottom:20px}.lecture-strip>div{flex-basis:100%}.lecture-strip strong{font-size:17px}.lecture-strip span{font-size:13px}.lecture-details dd{font-size:15px}.lecture-details dd span{font-size:13px}}
+
+/* Three video types replace the former rotating relationship stages. */
+.video-types{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:42px}
+.video-type{padding:30px 26px 34px;border:1px solid var(--line);border-radius:8px;background:#f6f7f9;text-align:left}
+.video-type-number{display:block;font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--muted)}
+.video-type h3{font-size:28px;line-height:1.5;margin:12px 0 14px;letter-spacing:-.03em}
+.video-type p{font-size:17px;line-height:1.85;color:var(--muted)}
+.video-type-featured{background:var(--accent);border-color:var(--accent);color:#fff}
+.video-type-featured .video-type-number,.video-type-featured p{color:#fff}
+.method-takeaway{text-align:center;font-size:18px;line-height:1.9;color:var(--muted);margin:30px auto 0;max-width:740px}
+@media(max-width:900px){.video-type{padding:26px 20px}.video-type h3{font-size:23px}.video-type p{font-size:16px}}
+@media(max-width:680px){.video-types{grid-template-columns:1fr;gap:14px;margin-top:28px}.video-type{padding:24px}.video-type h3{font-size:24px;margin:8px 0 10px}.video-type p{font-size:16px}.method-takeaway{font-size:16px;text-align:left;margin-top:24px}.method-takeaway br{display:none}}
+
+/* Additional source-backed cases connect results to methods visitors can learn. */
+.case-methods-section{background:#f2f4f7}
+.case-methods-section .section-heading p{max-width:780px;margin:24px auto 0;font-size:18px;line-height:1.9}
+.case-method-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:42px}
+.case-method-card{min-width:0;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.case-method-body{padding:28px;display:flex;flex-direction:column;flex:1}
+.case-method-category{font-size:13px;letter-spacing:.04em;color:var(--accent);font-weight:600}
+.case-method-card h3{font-size:26px;line-height:1.5;margin-top:12px}
+.case-method-outcome{font-size:19px;line-height:1.7;font-weight:700;margin:14px 0;color:var(--ink)}
+.case-method-body>p:not(.case-method-outcome),.case-method-lesson p{font-size:16px;color:var(--muted);line-height:1.9}
+.case-method-lesson{margin-top:auto;padding-top:24px}
+.case-method-lesson h4{border-top:1px solid var(--line);padding-top:20px;margin-bottom:10px;font-size:18px;line-height:1.65;color:var(--accent)}
+.case-method-source{font-size:13px;line-height:1.8;color:var(--muted);margin-top:20px}
+.method-invitation{text-align:center;max-width:740px;margin:64px auto 0}
+.method-invitation h3{font-size:30px;line-height:1.6}
+.method-invitation p{font-size:18px;line-height:1.9;color:var(--muted);margin:20px 0 26px}
+@media(max-width:900px){.case-method-grid{gap:16px}.case-method-body{padding:22px}.case-method-card h3{font-size:23px}}
+@media(max-width:680px){.case-method-grid{grid-template-columns:1fr;gap:24px;margin-top:30px}.case-method-body{padding:26px 24px}.case-method-card h3{font-size:25px}.case-methods-section .section-heading p{font-size:16px;text-align:left}.case-methods-section .section-heading p br{display:none}.case-method-lesson{padding-top:20px}.case-method-source{font-size:12px}.method-invitation{margin-top:42px}.method-invitation h3{font-size:26px}.method-invitation p{font-size:16px;text-align:left}}
+
+.case-method-image{height:340px;margin:0;padding:16px;background:#e7ebf0;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line)}
+.case-method-image img{display:block;width:100%;height:100%;object-fit:contain}
+@media(max-width:900px){.case-method-image{height:270px;padding:12px}}
+@media(max-width:680px){.case-method-image{height:340px;padding:16px}}
