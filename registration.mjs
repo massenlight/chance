@@ -13,7 +13,7 @@ const attributionKeys = {utm_source:'utmSource',utm_medium:'utmMedium',utm_campa
 
 export function availableSession(data, now = Date.now()) {
   if (now >= Date.parse(REGISTRATION.startsAt)) return null;
-  if (data?.directRegistrationReady !== true) return null;
+  if (data?.registrationReady !== true || data.lineBasicId !== REGISTRATION.basicId || !LIFF_ID.test(data.liffId || '')) return null;
   const session = Array.isArray(data.sessions) ? data.sessions.find(s => s?.id === REGISTRATION.sessionId) : null;
   if (!session || session.event_format !== 'in_person' || Date.parse(session.startsAt) !== Date.parse(REGISTRATION.startsAt) || Number(session.durationMinutes) !== 120) return null;
   if (String(session.venue_name || '').trim() !== REGISTRATION.venueName || String(session.venue_address || '').replace(/\s/g, '') !== REGISTRATION.venueAddress) return null;
@@ -68,20 +68,12 @@ export function createRegistrationClient({fetcher = globalThis.fetch, storage = 
       if (!availableSession(config, now())) return Promise.reject(Error('本場目前未開放報名，請重新確認場次。'));
       submitPromise = (async () => {
         const entryVisit = await ensureVisit();
-        const data = await request({action:'direct-register', name:fields.name.trim(), phone:fields.phone.trim(), sessionId:REGISTRATION.sessionId, consent:true, sourceSlug:REGISTRATION.source, entryVisit, ...attribution});
-        if (data.ok !== true || data.registered !== true || !data.registrationId) throw Error('尚未確認報名成功，請稍後再試。');
-        return data;
+        const data = await request({action:'pre-register', name:fields.name.trim(), phone:fields.phone.trim(), sessionId:REGISTRATION.sessionId, consent:true, sourceSlug:REGISTRATION.source, entryVisit, ...attribution});
+        return lineHandoff(data, config.liffId, entryVisit);
       })().catch(error => {submitPromise = null; throw error;});
       return submitPromise;
     }
   };
-}
-
-// Navigate only after durable registration succeeds; opening LINE does not itself confirm friendship.
-export function openRegisteredLine(result, navigate = url => window.location.assign(url)) {
-  if (result?.ok !== true || result.registered !== true || !result.registrationId) return false;
-  navigate('https://line.me/R/ti/p/' + REGISTRATION.basicId);
-  return true;
 }
 
 export function mountRegistration() {
@@ -99,7 +91,7 @@ export function mountRegistration() {
     try {
       const data = await client.config();
       if (!availableSession(data)) { status.textContent = '本場目前未開放報名或已截止。'; retry.hidden = false; return; }
-      config = data; submit.disabled = false; status.textContent = '填寫姓名與電話，送出即可完成報名。';
+      config = data; submit.disabled = false; status.textContent = '填寫姓名與電話，送出後自動開啟 LINE 加入好友，接收報名確認與提醒。';
     } catch { status.textContent = '暫時無法載入場次，請重新載入。'; retry.hidden = false; }
   }
   retry.addEventListener('click', () => { if (!busy) void load(); });
@@ -110,12 +102,12 @@ export function mountRegistration() {
     busy = true; submit.disabled = true; retry.hidden = true; status.textContent = '正在送出報名，請稍候…';
     try {
       pixel?.submit();
-      const result = await client.submit(config, {name, phone});
-      pixel?.complete(result);
+      const target = await client.submit(config, {name, phone});
       document.querySelector('#registration-fields').hidden = true;
-      status.textContent = '報名成功！正在開啟 Chance 官方 LINE，請在 LINE 點選加入好友。若未自動開啟，請點下方連結。';
-      document.querySelector('#registration-line').hidden = false;
-      try { openRegisteredLine(result); } catch { /* Registration remains successful; the visible LINE link is the fallback. */ }
+      status.textContent = '資料已送出，正在開啟 LINE。完成 LINE 登入與加入好友後，系統會自動完成報名並傳送確認訊息，不需要再按確認報名。';
+      const fallback = document.querySelector('#registration-line');
+      fallback.href = target.webUrl; fallback.textContent = '若 LINE 未開啟，點此繼續'; fallback.hidden = false;
+      try { window.location.assign(target.href); } catch { /* The saved form can be resumed from the fallback link. */ }
     } catch (error) {
       status.textContent = error.name === 'AbortError' ? '尚未收到報名結果，請再按一次送出；相同資料不會重複報名。' : error.message || '報名未完成，請稍後重試。';
       busy = false; submit.disabled = false;
