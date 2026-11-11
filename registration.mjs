@@ -1,3 +1,4 @@
+import {pixel} from './pixel.mjs';
 // One Chance in-person event. LINE identity and confirmation remain on the project backend.
 export const REGISTRATION = Object.freeze({
   api: 'https://massenlighten-platform.massenlighten-company.workers.dev/api/recruitment?project=a9e6075b-c8ad-40a7-b124-ce662b6d99b9',
@@ -101,7 +102,9 @@ export function mountRegistration() {
     if (!name || !/^0[2-9]\d{7,8}$/.test(phone.replace(/[\s()-]/g, '').replace(/^\+886/, '0'))) { status.textContent = '請填寫姓名及有效的台灣聯絡電話。'; return; }
     busy = true; submit.disabled = true; retry.hidden = true; status.textContent = '正在送出報名，請稍候…';
     try {
-      await client.submit(config, {name, phone});
+      pixel?.submit();
+      const result = await client.submit(config, {name, phone});
+      pixel?.complete(result);
       document.querySelector('#registration-fields').hidden = true;
       status.textContent = '報名成功！11/19（四）19:30–21:30，啟程空間見。地址：台北市南京東路三段9號5樓。請先記下時間與地點；需要聯繫主辦單位，可加入官方 LINE。';
       document.querySelector('#registration-line').hidden = false;
