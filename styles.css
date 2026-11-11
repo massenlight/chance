@@ -406,3 +406,20 @@ dialog{background:#fff;border-radius:0;box-shadow:0 30px 100px #252A3233}dialog:
 .case-method-image img{display:block;width:100%;height:100%;object-fit:contain}
 @media(max-width:900px){.case-method-image{height:270px;padding:12px}}
 @media(max-width:680px){.case-method-image{height:340px;padding:16px}}
+
+/* Chance registration uses the same single in-person session as the staff backend. */
+#registration-dialog [hidden]{display:none!important}
+#registration-summary{font-size:12px;line-height:1.7}
+.registration-sessions{margin:22px 0 0;padding:0;border:0;min-width:0}
+.registration-sessions legend{padding:0;margin-bottom:10px;font-size:13px;font-weight:600}
+.registration-sessions label{display:flex;align-items:flex-start;gap:12px;padding:15px;border:1px solid var(--accent);border-radius:6px;background:#f4f8ff;cursor:pointer}
+.registration-sessions input{flex:0 0 auto;width:18px;height:18px;margin:3px 0 0;accent-color:var(--accent)}
+.registration-sessions label span{font-size:14px;line-height:1.7;white-space:pre-line;overflow-wrap:anywhere}
+#registration-dialog .registration-status{font-size:14px;margin-top:18px;line-height:1.8;overflow-wrap:anywhere}
+#registration-dialog .registration-consent{font-size:12px;margin:20px 0 14px;line-height:1.9;color:var(--muted)}
+.registration-consent a,.registration-fallback{text-decoration:underline;text-underline-offset:3px}
+#registration-submit{width:100%;white-space:normal;gap:16px}
+#registration-submit:disabled{cursor:wait;opacity:.6;transform:none}
+.registration-fallback{display:block;margin-top:18px;font-size:14px;line-height:1.8;color:var(--accent);overflow-wrap:anywhere}
+.registration-retry{margin-top:16px;white-space:normal;text-align:left}
+@media(max-width:680px){#registration-dialog .registration-consent{font-size:12px}#registration-submit{font-size:14px;padding:16px 12px}.registration-sessions label span{font-size:13px}}
