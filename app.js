@@ -4,16 +4,6 @@ function closeMenu(){menuButton.setAttribute('aria-expanded','false');menuButton
 menuButton.addEventListener('click',()=>{const open=menuButton.getAttribute('aria-expanded')!=='true';menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',open?'關閉選單':'開啟選單');navigation.classList.toggle('open',open)});
 navigation.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
-const stages=[
- ['先出現在，真正需要你的人眼前。','從客戶的生活情境出發，選擇他會停下來看的題材。把「所有人」縮小成一個具體的人，內容才有對話的對象。','受眾定位 × 情境選題'],
- ['前三秒，說出他在乎的事。','把客戶心中的問題放進開場。讓你的第一句話，成為他願意留下來聽你說的理由。','開場鉤子 × 個人特色'],
- ['讓專業，在每一次分享裡被理解。','回答常見疑問、分享工作幕後與實際案例。持續提供有用的內容，讓顧客慢慢了解你的做法。','專業內容 × 信任累積'],
- ['給有興趣的人，一個明確的下一步。','看完之後，是留言、私訊，還是了解服務？一次安排一個清楚的行動，再用適合的方式接住詢問。','行動指引 × 詢問承接'],
- ['成交之後，關係才有機會走得更遠。','持續分享有用的內容，關心客戶的使用與服務體驗。讓滿意的客戶，有理由回來，也願意介紹朋友。','客戶經營 × 回購轉介']
-];
-const tabs=[...document.querySelectorAll('[data-stage]')];
-function selectStage(index,focus=false){document.querySelector('.journey').style.setProperty('--active-stage',index);tabs.forEach((t,i)=>{t.setAttribute('aria-selected',String(i===index));t.tabIndex=i===index?0:-1});document.querySelector('#stage-title').textContent=stages[index][0];document.querySelector('#stage-description').textContent=stages[index][1];document.querySelector('#stage-label').textContent=stages[index][2];document.querySelector('#journey-panel').setAttribute('aria-labelledby',`stage-${index}`);if(focus)tabs[index].focus()}
-tabs.forEach((tab,index)=>{tab.addEventListener('click',()=>selectStage(index));tab.addEventListener('keydown',event=>{let next=index;if(event.key==='ArrowRight')next=(index+1)%tabs.length;else if(event.key==='ArrowLeft')next=(index+tabs.length-1)%tabs.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=tabs.length-1;else return;event.preventDefault();selectStage(next,true)})});
 const topics={
  '推薦':['手機推薦','「長輩適合哪一種手機？」','從使用者的日常需求切入，比單純介紹規格更有感。'],
  '資費':['資費方案','「吃到飽，真的每個人都需要嗎？」','讓客戶理解自己的使用習慣，再選擇合適的方案。'],
@@ -79,28 +69,3 @@ if(!reducedMotion.matches && 'IntersectionObserver' in window){
  },{threshold:.65});
  document.querySelectorAll('.case-result .stat-number').forEach(number=>reelObserver.observe(number));
 }
-
-// Cycle the journey while visible; pause while visitors read or interact.
-const journey=document.querySelector('.journey');
-let journeyTimer;
-let journeyVisible=false;
-function restartJourney(){
- clearInterval(journeyTimer);
- if(!journeyVisible || document.hidden || reducedMotion.matches || journey.matches(':hover') || journey.contains(document.activeElement))return;
- journeyTimer=setInterval(()=>{
-  const current=tabs.findIndex(tab=>tab.getAttribute('aria-selected')==='true');
-  selectStage((current+1)%tabs.length);
- },3000);
-}
-if('IntersectionObserver' in window){
- new IntersectionObserver(entries=>{
-  journeyVisible=entries[0].isIntersecting;
-  restartJourney();
- },{threshold:.5}).observe(journey);
-}
-journey.addEventListener('mouseenter',restartJourney);
-journey.addEventListener('mouseleave',restartJourney);
-journey.addEventListener('focusin',restartJourney);
-journey.addEventListener('focusout',()=>setTimeout(restartJourney,0));
-document.addEventListener('visibilitychange',restartJourney);
-reducedMotion.addEventListener('change',restartJourney);
