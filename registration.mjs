@@ -77,6 +77,13 @@ export function createRegistrationClient({fetcher = globalThis.fetch, storage = 
   };
 }
 
+// Navigate only after durable registration succeeds; opening LINE does not itself confirm friendship.
+export function openRegisteredLine(result, navigate = url => window.location.assign(url)) {
+  if (result?.ok !== true || result.registered !== true || !result.registrationId) return false;
+  navigate('https://line.me/R/ti/p/' + REGISTRATION.basicId);
+  return true;
+}
+
 export function mountRegistration() {
   const form = document.querySelector('#registration-form');
   if (!form) return;
@@ -106,8 +113,9 @@ export function mountRegistration() {
       const result = await client.submit(config, {name, phone});
       pixel?.complete(result);
       document.querySelector('#registration-fields').hidden = true;
-      status.textContent = '報名成功！11/19（四）19:30–21:30，啟程空間見。地址：台北市南京東路三段9號5樓。請先記下時間與地點；需要聯繫主辦單位，可加入官方 LINE。';
+      status.textContent = '報名成功！正在開啟 Chance 官方 LINE，請在 LINE 點選加入好友。若未自動開啟，請點下方連結。';
       document.querySelector('#registration-line').hidden = false;
+      try { openRegisteredLine(result); } catch { /* Registration remains successful; the visible LINE link is the fallback. */ }
     } catch (error) {
       status.textContent = error.name === 'AbortError' ? '尚未收到報名結果，請再按一次送出；相同資料不會重複報名。' : error.message || '報名未完成，請稍後重試。';
       busy = false; submit.disabled = false;
