@@ -497,3 +497,6 @@ dialog{background:#fff;border-radius:0;box-shadow:0 30px 100px #252A3233}dialog:
 .enroll-invitation h3{font-size:27px;line-height:1.6;margin-top:32px}
 .enroll-layout .enroll-invitation .invitation-last{font-size:23px;font-weight:700}
 @media(max-width:680px){.copy-case-grid,.audience-grid{grid-template-columns:1fr}.copy-case-grid .case-image{height:230px}.copy-case-question{font-size:20px}.enroll-layout .enroll-invitation>p{font-size:16px}.enroll-invitation h3{font-size:23px}.enroll-layout .enroll-invitation .invitation-last{font-size:20px}}
+
+/* Customer testimonial clips: load only on user playback. */
+.testimonial-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}.testimonial-card{min-width:0}.testimonial-card video{display:block;width:100%;aspect-ratio:9/16;object-fit:contain;background:#111}.testimonial-card h3{margin-top:18px;font-size:20px}.testimonial-card a{display:inline-block;margin-top:8px;color:var(--muted);font-size:14px}@media(max-width:680px){.testimonial-grid{grid-template-columns:1fr;gap:36px}.testimonial-card{width:100%;max-width:360px;margin-inline:auto}}
