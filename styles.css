@@ -500,3 +500,27 @@ dialog{background:#fff;border-radius:0;box-shadow:0 30px 100px #252A3233}dialog:
 
 /* Customer testimonial clips: load only on user playback. */
 .testimonial-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}.testimonial-card{min-width:0}.testimonial-card video{display:block;width:100%;aspect-ratio:9/16;object-fit:contain;background:#111}.testimonial-card h3{margin-top:18px;font-size:20px}.testimonial-card a{display:inline-block;margin-top:8px;color:var(--muted);font-size:14px}@media(max-width:680px){.testimonial-grid{grid-template-columns:1fr;gap:36px}.testimonial-card{width:100%;max-width:360px;margin-inline:auto}}
+
+/* Put the seminar offer and action before visual decoration. */
+.hero-event{display:grid;gap:4px;margin-top:22px;font-size:18px;color:#fff}.hero-event small{font-size:14px;color:#d4e1ec}
+.hero-stage .hero-learning-copy{font-size:20px;line-height:1.8}.hero-stage .hero .eyebrow{font-size:16px;letter-spacing:.03em}
+.testimonial-card h3{margin:0 0 12px;font-size:24px;line-height:1.5}.testimonial-card p{font-size:17px;line-height:1.7;margin-bottom:20px;min-height:3.4em}
+@media(max-width:680px){
+ .hero-stage .hero{display:block;position:relative;padding:0 22px;min-height:0}
+ .hero-stage .hero-copy{padding:28px 0 30px;position:relative;z-index:2}
+ .hero-stage .hero .eyebrow{font-size:17px;letter-spacing:0;white-space:normal;padding-right:70px}
+ .hero-stage .hero-title{font-size:clamp(30px,8vw,38px);line-height:1.35;margin-top:40px;white-space:normal;letter-spacing:0}
+ .hero-stage .hero-learning-copy{max-width:none;font-size:18px;line-height:1.7;margin-top:18px}
+ .hero-event{margin-top:18px;font-size:18px}.hero-event small{font-size:14px}
+ .hero-stage .hero-actions{margin-top:20px;display:block}
+ .hero-stage .hero-actions .button{width:100%;font-size:18px;min-height:54px;padding:14px 16px;justify-content:center}
+ .hero-stage .hero-visual{position:absolute;top:10px;right:20px;width:65px;height:92px;margin:0;pointer-events:none}
+ .hero-stage .portrait-frame{position:relative;inset:auto;min-height:0;height:92px;overflow:hidden}
+ .hero-stage .portrait-frame>img{height:92px;max-height:92px;width:auto;max-width:none}
+ .hero-stage .hero-footer,.brand small{display:none}
+ .section{padding-top:44px;padding-bottom:44px}.testimonial-card h3{font-size:24px}.testimonial-card p{font-size:17px;min-height:0}
+ .learning-item h3{font-size:24px}.learning-item>p{font-size:17px}
+ .mobile-bar{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:50;background:#fff;padding:10px 16px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -2px 15px #0001;transform:none;opacity:1;visibility:visible;align-items:center;justify-content:space-between;gap:12px}
+ .mobile-bar>span{font-size:15px}.mobile-bar small{display:block;font-size:12px}.mobile-bar .button{font-size:17px;min-height:48px;padding:12px 18px}
+ body{padding-bottom:90px}#enroll{scroll-margin-top:80px}
+}
