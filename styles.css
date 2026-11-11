@@ -475,3 +475,11 @@ dialog{background:#fff;border-radius:0;box-shadow:0 30px 100px #252A3233}dialog:
 .registration-fallback{display:block;margin-top:18px;font-size:14px;line-height:1.8;color:var(--accent);overflow-wrap:anywhere}
 .registration-retry{margin-top:16px;white-space:normal;text-align:left}
 @media(max-width:680px){#registration-dialog .registration-consent{font-size:12px}#registration-submit{font-size:14px;padding:16px 12px}.registration-sessions label span{font-size:13px}}
+
+/* Inline seminar registration: keep the event, contact fields and submission in one card. */
+.registration-fields label{display:block;font-weight:600;margin:18px 0 8px}
+.registration-fields input{display:block;width:100%;min-height:48px;padding:12px 14px;border:1px solid #c7cddb;background:#fff;color:#252932;border-radius:0;font:inherit;font-size:16px;box-sizing:border-box}
+.registration-fields input:focus{outline:2px solid #315bd5;outline-offset:2px}
+.registration-fields .button{width:100%;margin-top:16px}
+#registration-form [hidden]{display:none!important}
+#registration-form .registration-status{line-height:1.8}

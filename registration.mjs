@@ -12,7 +12,7 @@ const attributionKeys = {utm_source:'utmSource',utm_medium:'utmMedium',utm_campa
 
 export function availableSession(data, now = Date.now()) {
   if (now >= Date.parse(REGISTRATION.startsAt)) return null;
-  if (data?.registrationReady !== true || data.lineBasicId !== REGISTRATION.basicId || !LIFF_ID.test(data.liffId || '')) return null;
+  if (data?.directRegistrationReady !== true) return null;
   const session = Array.isArray(data.sessions) ? data.sessions.find(s => s?.id === REGISTRATION.sessionId) : null;
   if (!session || session.event_format !== 'in_person' || Date.parse(session.startsAt) !== Date.parse(REGISTRATION.startsAt) || Number(session.durationMinutes) !== 120) return null;
   if (String(session.venue_name || '').trim() !== REGISTRATION.venueName || String(session.venue_address || '').replace(/\s/g, '') !== REGISTRATION.venueAddress) return null;
@@ -62,13 +62,14 @@ export function createRegistrationClient({fetcher = globalThis.fetch, storage = 
   return {
     config: () => request(),
     ensureVisit,
-    submit(config) {
+    submit(config, fields) {
       if (submitPromise) return submitPromise;
       if (!availableSession(config, now())) return Promise.reject(Error('本場目前未開放報名，請重新確認場次。'));
       submitPromise = (async () => {
         const entryVisit = await ensureVisit();
-        const data = await request({action:'pre-register', sessionId:REGISTRATION.sessionId, consent:true, sourceSlug:REGISTRATION.source, entryVisit, ...attribution});
-        return lineHandoff(data, config.liffId, entryVisit);
+        const data = await request({action:'direct-register', name:fields.name.trim(), phone:fields.phone.trim(), sessionId:REGISTRATION.sessionId, consent:true, sourceSlug:REGISTRATION.source, entryVisit, ...attribution});
+        if (data.ok !== true || data.registered !== true || !data.registrationId) throw Error('尚未確認報名成功，請稍後再試。');
+        return data;
       })().catch(error => {submitPromise = null; throw error;});
       return submitPromise;
     }
@@ -78,55 +79,35 @@ export function createRegistrationClient({fetcher = globalThis.fetch, storage = 
 export function mountRegistration() {
   const form = document.querySelector('#registration-form');
   if (!form) return;
-  const dialog = document.querySelector('#registration-dialog'), open = document.querySelector('#registration-button');
-  const staticDetails = document.querySelector('#registration-static-details');
-  const status = document.querySelector('#registration-status'), summary = document.querySelector('#registration-summary');
-  const choices = document.querySelector('#registration-sessions'), input = document.querySelector('#registration-session'), label = document.querySelector('#registration-session-label');
-  const action = document.querySelector('#registration-action'), submit = document.querySelector('#registration-submit'), retry = document.querySelector('#registration-retry'), fallback = document.querySelector('#registration-fallback');
+  const status = document.querySelector('#registration-status'), submit = document.querySelector('#registration-submit'), retry = document.querySelector('#registration-retry');
   let storage = null;
-  try { storage = window.sessionStorage; } catch { /* Storage access is optional. */ }
+  try { storage = window.sessionStorage; } catch {}
   const client = createRegistrationClient({storage, search:location.search, path:location.pathname});
-  let config = null, loading = false, busy = false;
-  open.addEventListener('click', () => {dialog.showModal(); document.body.classList.add('modal-open');});
-  // Page arrival is measured when the page loads, not manufactured when the form is submitted.
+  let config = null, busy = false;
   void client.ensureVisit().catch(() => {});
   async function load() {
-    if (loading || busy) return;
-    loading = true; config = null; choices.hidden = action.hidden = retry.hidden = true; submit.disabled = true; staticDetails.hidden = false;
-    status.textContent = summary.textContent = '正在確認報名場次與 LINE 入口…';
+    config = null; submit.disabled = true; retry.hidden = true;
+    status.textContent = '正在確認報名場次…';
     try {
-      const data = await client.config(), session = availableSession(data);
-      if (!session) {
-        status.textContent = summary.textContent = Date.now() >= Date.parse(REGISTRATION.startsAt) ? '本場講座已截止報名。' : '本場報名尚未開放，請稍後再來確認。';
-        retry.hidden = false; return;
-      }
-      config = data; input.value = session.id; input.checked = true;
-      const start = new Date(session.startsAt), end = new Date(+start + session.durationMinutes * 60000);
-      const date = new Intl.DateTimeFormat('zh-TW', {timeZone:'Asia/Taipei', year:'numeric', month:'numeric', day:'numeric', weekday:'short'}).format(start);
-      const time = new Intl.DateTimeFormat('zh-TW', {timeZone:'Asia/Taipei', hour:'2-digit', minute:'2-digit', hourCycle:'h23'});
-      label.textContent = `${date} ${time.format(start)}–${time.format(end)}\n${session.venue_name}・${session.venue_address}`;
-      choices.hidden = action.hidden = false; submit.disabled = false; staticDetails.hidden = true;
-      status.textContent = '本場為免費實體講座。確認場次後，前往 Chance 官方 LINE 完成報名。';
-      summary.textContent = '無須填寫姓名、Email 或電話。請以 LINE 帳號完成報名。';
-      open.replaceChildren(document.createTextNode('報名免費實體講座 '));
-      const arrow = document.createElement('span'); arrow.textContent = '↗'; open.append(arrow);
-    } catch {
-      status.textContent = summary.textContent = '暫時無法載入報名場次，請重新確認後再試。'; retry.hidden = false;
-    } finally { loading = false; }
+      const data = await client.config();
+      if (!availableSession(data)) { status.textContent = '本場目前未開放報名或已截止。'; retry.hidden = false; return; }
+      config = data; submit.disabled = false; status.textContent = '填寫姓名與電話，送出即可完成報名。';
+    } catch { status.textContent = '暫時無法載入場次，請重新載入。'; retry.hidden = false; }
   }
-  retry.addEventListener('click', () => {void load();});
+  retry.addEventListener('click', () => { if (!busy) void load(); });
   form.addEventListener('submit', async event => {
     event.preventDefault(); if (busy || !config || !form.reportValidity()) return;
-    busy = true; submit.disabled = true; retry.hidden = true;
-    status.textContent = '正在保存你選擇的場次，完成後將前往 LINE…';
+    const name = form.elements.name.value.trim(), phone = form.elements.phone.value.trim();
+    if (!name || !/^0[2-9]\d{7,8}$/.test(phone.replace(/[\s()-]/g, '').replace(/^\+886/, '0'))) { status.textContent = '請填寫姓名及有效的台灣聯絡電話。'; return; }
+    busy = true; submit.disabled = true; retry.hidden = true; status.textContent = '正在送出報名，請稍候…';
     try {
-      const target = await client.submit(config);
-      fallback.href = target.webUrl; fallback.hidden = false;
-      status.textContent = '已保存場次選擇，正在開啟 LINE。請完成 LINE 登入與加入好友，並以 LINE 內的報名確認為準。';
-      location.assign(target.href);
+      await client.submit(config, {name, phone});
+      document.querySelector('#registration-fields').hidden = true;
+      status.textContent = '報名成功！11/19（四）19:30–21:30，啟程空間見。地址：台北市南京東路三段9號5樓。請先記下時間與地點；需要聯繫主辦單位，可加入官方 LINE。';
+      document.querySelector('#registration-line').hidden = false;
     } catch (error) {
-      status.textContent = error.name === 'AbortError' ? '連線逾時，尚未完成報名。請稍後重試。' : error.message || '報名未完成，請稍後重試。';
-      busy = false; submit.disabled = false; retry.hidden = false;
+      status.textContent = error.name === 'AbortError' ? '尚未收到報名結果，請再按一次送出；相同資料不會重複報名。' : error.message || '報名未完成，請稍後重試。';
+      busy = false; submit.disabled = false;
     }
   });
   void load();
