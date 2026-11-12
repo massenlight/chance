@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0A0D14">
+  <title>Chance 免費實體講座｜11/19 短影音收單學</title>
+  <meta name="description" content="11/19（四）19:30–21:30，跟 Chance 學怎麼選題、介紹產品，讓客人來問。免費實體講座｜台北市南京東路三段9號5樓。">
+  <meta property="og:title" content="Chance 免費實體講座｜11/19 短影音收單學"><meta property="og:description" content="2026/11/19（四）19:30–21:30｜免費實體講座｜啟程空間・台北市南京東路三段9號5樓。">
+  <meta property="og:image" content="https://massenlight.github.io/chance/assets/chance-share-cover.png">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap">
+  <link rel="stylesheet" href="styles.css?v=20261112-v2">
+  <script type="module" src="app.js?v=20261112-v2"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">跳至主要內容</a>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="#top" class="brand" aria-label="短影音收單學首頁"><span class="brand-icon" aria-hidden="true">▶</span><span>短影音收單學<small>CONTENT TO CUSTOMERS</small></span></a>
+    <a class="btn btn-small" href="#enroll">免費報名</a>
+  </div>
+</header>
+
+<main id="main">
+  <!-- 1. Course hero -->
+  <section class="hero" id="top">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="hero-kicker"><span>短影音收單學</span><span>Chance 免費實體講座</span></p>
+        <h1>短影音，<br><em>怎麼拍才有客人？</em></h1>
+        <p class="hero-sub">題目怎麼選、產品怎麼講、看完怎麼讓客人來問。<br><strong>這兩小時，Chance 教你怎麼做。</strong></p>
+        <ul class="hero-meta" aria-label="講座資訊">
+          <li><span class="meta-label">日期</span><strong>11/19（四）19:30–21:30</strong></li>
+          <li><span class="meta-label">地點</span><strong>台北・啟程空間</strong><small>南京東路三段9號5樓</small></li>
+          <li><span class="meta-label">費用</span><strong>免費・實體講座</strong></li>
+        </ul>
+        <div class="hero-mentor">
+          <img src="../assets/chance.jpg" alt="" width="48" height="48">
+          <p><strong>Chance</strong><span>眾曜智庫 行銷顧問・《短影音變現學》作者</span></p>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="../assets/chance-cutout.png" alt="講師 Chance" fetchpriority="high" width="1073" height="1465">
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Section tabs -->
+  <nav class="tabs" aria-label="頁面分區">
+    <div class="wrap tabs-row">
+      <a href="#intro">講座簡介</a><a href="#learn">學到什麼</a><a href="#voices">客戶見證</a><a href="#cases">操盤案例</a><a href="#mentor">關於講師</a><a href="#faq">常見問題</a>
+    </div>
+  </nav>
+
+  <div class="wrap course-layout">
+    <!-- 3. Registration rail (sticky on desktop, right after hero on mobile) -->
+    <aside class="enroll-rail" id="enroll" aria-labelledby="enroll-title">
+      <div class="enroll-card">
+        <div class="card-body">
+          <span class="card-badge"><span class="dot" aria-hidden="true"></span>免費實體講座</span>
+          <h2 id="enroll-title">短影音收單學<small>億萬變現全攻略 · Chance</small></h2>
+
+          <p class="card-label">講座場次</p>
+          <div class="session-chip" aria-current="true"><strong>11/19（四）19:30–21:30</strong><span>啟程空間・台北市南京東路三段9號5樓</span></div>
+
+          <div class="countdown" id="countdown" hidden>
+            <span class="countdown-label">距離開講</span>
+            <span class="countdown-units" role="timer" aria-live="off"><span><b data-unit="d">0</b>天</span><span><b data-unit="h">00</b>時</span><span><b data-unit="m">00</b>分</span><span><b data-unit="s">00</b>秒</span></span>
+          </div>
+
+          <div class="price-row">
+            <s id="offer-original" hidden></s>
+            <strong>NT$ 0</strong><span>免費參加</span>
+          </div>
+
+          <form id="registration-form">
+            <div class="registration-fields" id="registration-fields">
+              <label for="registration-name">姓名</label><input id="registration-name" name="name" autocomplete="name" maxlength="80" placeholder="請填寫姓名" required>
+              <label for="registration-phone">電話</label><input id="registration-phone" name="phone" type="tel" autocomplete="tel" maxlength="24" placeholder="請填寫聯絡電話" required>
+              <button class="btn btn-block" id="registration-submit" type="submit" disabled>免費報名，保留座位</button>
+              <p class="registration-consent">按下報名即同意以姓名、電話及 LINE 帳號辦理本次講座報名，並接收報名確認與活動提醒。<a href="https://www.massenlighten.com/privacy" target="_blank" rel="noopener noreferrer">隱私權政策</a></p>
+            </div>
+            <p id="registration-status" class="registration-status" role="status" aria-live="polite">正在確認報名場次…</p>
+            <button class="text-link registration-retry" id="registration-retry" type="button" hidden>重新載入場次</button>
+            <a id="registration-line" class="text-link" href="https://line.me/R/ti/p/@636xbvux" hidden>加入 Chance 官方 LINE</a>
+          </form>
+          <noscript><p class="registration-status">請開啟瀏覽器的 JavaScript，才能載入正式報名場次。</p></noscript>
+
+          <p class="proof" id="offer-attendees" hidden></p>
+        </div>
+      </div>
+    </aside>
+
+    <div class="course-main">
+      <!-- 講座簡介 -->
+      <section id="intro" class="block">
+        <h2 class="block-title">講座簡介</h2>
+
+        <h3 class="sub-title">報名只要三步</h3>
+        <ol class="steps">
+          <li><b>1</b><div><strong>填姓名與電話</strong><p>在報名卡填好資料，按「免費報名」。</p></div></li>
+          <li><b>2</b><div><strong>自動開啟 LINE</strong><p>加入 Chance 官方 LINE 好友，系統自動完成報名。</p></div></li>
+          <li><b>3</b><div><strong>收確認與提醒</strong><p>LINE 會傳報名確認，講座前一天與當天再提醒你到場。</p></div></li>
+        </ol>
+
+        <h3 class="sub-title">想靠短影音做生意，你也遇過這些嗎？</h3>
+        <ul class="pains">
+          <li><strong>有人看，沒人問。</strong><p>大家都在留言「好好笑」，卻沒人問價格、地址或怎麼買。</p></li>
+          <li><strong>明天又要拍什麼？</strong><p>跟過熱門題目，也試過別人的拍法，還是不知道自己的產品適合拍什麼。</p></li>
+          <li><strong>錢花了，效果呢？</strong><p>拍攝、剪輯、廣告都花了錢，卻沒多幾個客人。這支影片，到底拍給誰看？</p></li>
+        </ul>
+
+        <blockquote class="callout"><p>成功是有方法的。<br><em>把方法學回去。</em></p><footer>這場講座，就從這幾個問題開始講。</footer></blockquote>
+      </section>
+
+      <!-- 學到什麼 -->
+      <section id="learn" class="block">
+        <h2 class="block-title">免費來聽這兩小時，你會學到什麼？</h2>
+        <ol class="learn-list">
+          <li><span class="tag">01 客人</span><h3>想要什麼客人，就該拍什麼題目。</h3><p>先決定想找什麼客人，再選影片題目。</p></li>
+          <li><span class="tag">02 題目</span><h3>沒題材？從客人常問的問題開始。</h3><p>把客人常問、常誤會的事，變成拍不完的題材。</p></li>
+          <li><span class="tag">03 開頭</span><h3>第一句怎麼講，客人才會停下來？</h3><p>第一句就講客人在意的事，讓人願意繼續看。</p></li>
+          <li><span class="tag">04 產品</span><h3>你的產品很好，客人為什麼沒感覺？</h3><p>把產品特色，講成客人想買的理由。</p></li>
+          <li><span class="tag">05 信任</span><h3>客人還不相信你，影片能拍什麼？</h3><p>拍工作現場、示範產品、分享案例，回答客人的疑慮。</p></li>
+          <li><span class="tag">06 詢問</span><h3>影片看完了，怎麼讓客人來問？</h3><p>影片最後怎麼說，才能讓人加 LINE、預約或來店裡？</p></li>
+        </ol>
+
+        <div class="compare">
+          <p class="compare-kicker">講座裡會講的例子</p>
+          <h3 class="sub-title">同樣拍餐飲，為什麼有人只看熱鬧，有人開始問加盟？</h3>
+          <div class="compare-grid">
+            <article><small>題目一</small><strong>i 人店員</strong><p>觀眾聊的是店員的反應、尷尬場面和笑點。</p></article>
+            <span class="compare-vs" aria-hidden="true">VS</span>
+            <article class="is-focus"><small>題目二</small><strong>一碗螺螄粉能賺多少？</strong><p>觀眾開始問加盟、開店城市和合作方式。</p></article>
+          </div>
+          <p class="compare-note">你希望客人問什麼，就要先想：什麼題目會讓他想問？兩支影片吸引的人不一樣，留言當然也不一樣。Chance 會用這些例子，教你判斷自己的題目有沒有選對。</p>
+        </div>
+
+        <h3 class="sub-title" id="audience">這場適合誰？</h3>
+        <ul class="audience">
+          <li><strong>開店的你</strong><p>想讓附近以外的人知道你，願意專程來店裡。</p></li>
+          <li><strong>賣課程、做顧問的你</strong><p>知道自己能幫客人，但不知道影片要怎麼講，才會有人來問。</p></li>
+          <li><strong>想拓展市場的你</strong><p>想找加盟主、經銷商，需要吸引會認真談合作的人。</p></li>
+          <li><strong>負責公司行銷的你</strong><p>每個月都有影片要交，也需要知道哪些內容對生意有幫助。</p></li>
+        </ul>
+        <p class="fine">本場會講選題、內容做法與實際案例，不包含剪輯軟體的操作教學。</p>
+      </section>
+
+      <!-- 客戶見證 -->
+      <section id="voices" class="block">
+        <h2 class="block-title">跟 Chance 合作之後，他們怎麼說？</h2>
+        <p class="block-lead">客戶親自分享。點影片播放。</p>
+        <div class="voice-grid">
+          <article class="voice"><video controls playsinline preload="none" poster="../assets/testimonials/chance1-2.jpg" aria-label="老人輔具，也能做出數倍營收"><source src="../assets/testimonials/chance1-2.mp4" type="video/mp4">你的瀏覽器不支援影片播放。</video><h3>老人輔具，也能做出數倍營收</h3><p>冷門議題怎麼拍？聽輔具業者分享合作後的生意變化。</p></article>
+          <article class="voice"><video controls playsinline preload="none" poster="../assets/testimonials/chance1-3.jpg" aria-label="房地產業主，邀 Chance 到歐洲拍片"><source src="../assets/testimonials/chance1-3.mp4" type="video/mp4">你的瀏覽器不支援影片播放。</video><h3>房地產業主，邀 Chance 到歐洲拍片</h3><p>從房地產的生意出發，業主為什麼決定請他出國拍短影音？</p></article>
+          <article class="voice"><video controls playsinline preload="none" poster="../assets/testimonials/chance1-4.jpg" aria-label="擁有 6 萬多名學生的 AI 課程老師"><source src="../assets/testimonials/chance1-4.mp4" type="video/mp4">你的瀏覽器不支援影片播放。</video><h3>擁有 6 萬多名學生的 AI 課程老師</h3><p>AI 課程怎麼讓更多人願意報名？聽老師親自分享。</p></article>
+        </div>
+      </section>
+
+      <!-- 操盤案例 -->
+      <section id="cases" class="block">
+        <h2 class="block-title">這些老闆拍了短影音，生意有什麼改變？</h2>
+        <div class="case-grid">
+          <article class="case"><div class="case-img"><img src="../assets/thirteen.png" alt="十三妹螺螄粉案例" loading="lazy"><span>加盟品牌</span></div><div class="case-body"><h3>十三妹螺螄粉</h3><p class="case-stat"><strong>68 家</strong><span>兩年展店</span></p><p>想找加盟主，影片就要拍給想做生意的人看。</p></div></article>
+          <article class="case"><div class="case-img"><img src="../assets/moibon.png" alt="毛一本案例" loading="lazy"><span>餐飲品牌</span></div><div class="case-body"><h3>毛一本</h3><p class="case-stat"><strong>業績翻倍</strong><span>影片上線首月</span></p><p>怎麼讓看到餐點的人，真的想來店裡吃？</p></div></article>
+          <article class="case"><div class="case-img"><img src="../assets/ai-magician.png" alt="AI 魔術師案例" loading="lazy"><span>課程招生</span></div><div class="case-body"><h3>AI 魔術師</h3><p class="case-stat"><strong>超過 6 萬名</strong><span>導入學員</span></p><p>課程有內容，還要讓人知道為什麼值得學。</p></div></article>
+          <article class="case"><div class="case-img"><img src="../assets/flower-shop.jpg" alt="中原大學周邊花店案例" loading="lazy"><span>實體店家</span></div><div class="case-body"><h3>中原大學周邊花店</h3><p class="case-stat"><strong>成長 6～7 倍</strong><span>影片上線隔週的生意</span></p><p>店開在巷子裡，也能讓客人專程找過來。</p></div></article>
+        </div>
+        <p class="fine">案例成績由講師提供，為個別品牌經驗；實際成果依產品、市場與執行而異。</p>
+      </section>
+
+      <!-- 關於講師 -->
+      <section id="mentor" class="block">
+        <h2 class="block-title">關於講師</h2>
+        <div class="mentor">
+          <img src="../assets/chance.jpg" alt="Chance 講師形象照" width="1536" height="2048" loading="lazy">
+          <div>
+            <p class="mentor-name"><strong>Chance</strong><span>眾曜智庫 行銷顧問</span></p>
+            <p class="mentor-lead">要找什麼客人、影片講什麼、看完怎麼引導詢問，都是他操盤時要處理的事。</p>
+            <ul class="mentor-creds">
+              <li>《短影音變現學》作者</li>
+              <li>品牌操盤經驗：趨勢科技、W Hotel、SUM、TutorABC</li>
+              <li>十三妹螺螄粉、AI 魔術師等專案幕後操盤</li>
+            </ul>
+            <p>一支短影音代操 15,000 元，背後是選題、講產品、讓客人來問的一整套方法。11/19，Chance 拿做過的案例，講當時怎麼想、怎麼拍，還有你自己的產品可以怎麼做。</p>
+          </div>
+        </div>
+        <div class="closing">
+          <p>這場免費。<br>帶著你的問題來，好好聽這兩小時。</p>
+          <a class="btn" href="#enroll">免費報名，保留座位</a>
+        </div>
+      </section>
+
+      <!-- 常見問題 -->
+      <section id="faq" class="block">
+        <h2 class="block-title">常見問題</h2>
+        <div class="faq">
+          <details><summary>還沒開始拍影片，也可以來嗎？</summary><p>可以。從要找什麼客人、適合拍什麼題目開始講。帶著你的產品和客戶常問的問題來，更容易對照自己的情況。</p></details>
+          <details><summary>一定要自己露臉嗎？</summary><p>不一定。產品示範、工作過程、團隊出鏡都可以。講座會談不同的做法，重點是選擇適合自己生意、也能持續拍下去的方式。</p></details>
+          <details><summary>會教拍攝和剪輯軟體嗎？</summary><p>這兩小時主要講選題、影片內容和實際案例，不包含拍攝、剪輯軟體的操作教學。</p></details>
+          <details><summary>在哪裡上課？怎麼報名？</summary><p>2026/11/19（四）19:30–21:30，免費實體講座。地點：啟程空間，台北市南京東路三段9號5樓。在本頁填姓名、電話送出後，會自動開啟 Chance 官方 LINE，加入好友接收報名確認與到場提醒。</p></details>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer" id="contact">
+  <div class="wrap footer-grid">
+    <div class="footer-map"><iframe src="https://maps.google.com/maps?q=台北市南京東路三段9號5樓&amp;hl=zh-TW&amp;z=16&amp;output=embed" title="啟程空間・免費講座場地地圖" width="100%" height="100%" style="border:0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    <div class="footer-info">
+      <p class="footer-notice">Chance 免費實體講座｜11/19（四）19:30–21:30。活動地點：啟程空間，台北市南京東路三段9號5樓。</p>
+      <p><strong>眾曜智庫股份有限公司</strong>｜公司地址：新北市板橋區雙十路二段79號10樓之2（非講座場地）</p>
+      <ul class="footer-contacts">
+        <li><a href="mailto:service@massenlighten.com">客服信箱：service@massenlighten.com</a></li>
+        <li><a href="tel:0282752299">客服電話：02-8275-2299</a></li>
+        <li>統一編號：90699029</li>
+      </ul>
+      <p class="footer-legal"><a href="https://www.massenlighten.com/privacy" target="_blank" rel="noopener noreferrer">隱私權政策 Privacy Policy</a>　© <span id="year">2026</span> 眾曜智庫 Mass Enlighten All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-bar"><span>短影音收單學<small>11/19（四）19:30・免費實體講座</small></span><a class="btn btn-small" href="#enroll">免費報名</a></div>
+</body>
+</html>
