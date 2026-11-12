@@ -4,7 +4,7 @@ import {REGISTRATION} from '../registration.mjs';
 
 // Offer numbers stay hidden until real figures are provided. Never fill these with estimates.
 // originalPrice: e.g. 1500 → shows "NT$1,500" struck through beside NT$0.
-// attendees: e.g. 1200 → shows "已有 1,200 人參加過 Chance 的講座與課程" (edit the sentence to match the real source).
+// attendees: e.g. 1200 → shows "已有 1,200 人參加過 Chance 的體驗課與課程" (edit the sentence to match the real source).
 export const OFFER = Object.freeze({originalPrice: null, attendees: null});
 
 const fmt = n => Number(n).toLocaleString('en-US');
@@ -15,7 +15,7 @@ if (Number.isFinite(OFFER.originalPrice) && OFFER.originalPrice > 0) {
 if (Number.isFinite(OFFER.attendees) && OFFER.attendees > 0) {
   const p = document.querySelector('#offer-attendees');
   const b = document.createElement('strong'); b.textContent = fmt(OFFER.attendees);
-  p.append('已有 ', b, ' 人參加過 Chance 的講座與課程'); p.hidden = false;
+  p.append('已有 ', b, ' 人參加過 Chance 的體驗課與課程'); p.hidden = false;
 }
 
 // Countdown to the session start; hidden once the session has started.
