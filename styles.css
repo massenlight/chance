@@ -339,8 +339,8 @@ button,input{font:inherit;color:inherit}
   .gains p{margin-top:2px;font-size:15px;color:var(--muted)}
   .bonus{margin-top:24px;padding:14px 16px;font-size:17px}
 
-  .mentor{grid-template-columns:96px minmax(0,1fr);grid-template-rows:none;gap:12px 14px;margin-top:14px}
-  .mentor img{grid-row:auto}
+  .mentor{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:none;gap:12px 14px;margin-top:14px;align-items:center} /* photo : text = 1 : 1 */
+  .mentor img{grid-row:auto;aspect-ratio:1/1;max-height:26vh;max-height:26svh}
   .mentor-head{padding-top:0}
   .mentor-name{font-size:24px}
   .mentor-lead{margin-top:2px;font-size:14px;line-height:1.6}
@@ -411,8 +411,9 @@ button,input{font:inherit;color:inherit}
   .block-title + .gains{margin-top:12px}
   .gains strong{font-size:18px}
   .bonus{margin-top:16px;padding:12px 14px;font-size:16px}
-  .mentor img{width:80px}
-  .mentor{grid-template-columns:80px minmax(0,1fr);margin-top:10px}
+  .mentor{margin-top:10px}
+  .mentor img{max-height:20vh;max-height:20svh}
+  .mentor-creds li{font-size:13px;line-height:1.55}
   .mentor-lead{font-size:13px}
   .partners-wrap{margin-top:14px}
   .partners{--gap:5px}
