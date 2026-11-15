@@ -139,8 +139,9 @@ button,input{font:inherit;color:inherit}
 .q.is-trap b{color:var(--warm)}
 /* 高流量・高變現 stands out: brighter fill, glow, slight lift, check mark before the label */
 .q.is-best{position:relative;z-index:1;border:2px solid var(--accent-text);background:linear-gradient(135deg,rgba(44,114,230,.6),rgba(22,93,206,.32));box-shadow:0 0 0 4px rgba(126,176,255,.14),0 18px 40px -16px rgba(22,93,206,.95);transform:scale(1.03)}
-.q.is-best b{display:flex;align-items:center;gap:8px;color:#fff}
-.q.is-best b::before{content:"";flex:none;width:1.25em;height:1.25em;border-radius:50%;background:var(--warm) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1407' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/70% no-repeat}
+.q.is-best b,.q.is-good b{display:flex;align-items:center;gap:8px}
+.q.is-best b{color:#fff}
+.q.is-best b::before,.q.is-good b::before{content:"";flex:none;width:1.25em;height:1.25em;border-radius:50%;background:var(--warm) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1407' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/70% no-repeat}
 .q.is-best span{color:var(--ink)}
 
 /* Quiz teaser, reserved areas, what you take home */
@@ -326,8 +327,9 @@ button,input{font:inherit;color:inherit}
   .fig-head{margin-bottom:12px}
   .q{min-height:0;padding:12px}
   .q b{font-size:13px;white-space:nowrap}
-  .q.is-best b{gap:5px;white-space:nowrap;font-size:13px}
-  .q.is-best b::before{width:1.15em;height:1.15em}
+  .q{padding-inline:10px}
+  .q.is-best b,.q.is-good b{gap:4px;white-space:nowrap;font-size:12px}
+  .q.is-best b::before,.q.is-good b::before{width:1.1em;height:1.1em}
   .q span{font-size:13px}
 
   .marker-line{font-size:clamp(19px,5.6vw,24px)}
