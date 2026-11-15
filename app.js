@@ -1,4 +1,4 @@
-// Chance v2 page behavior. Registration, LINE handoff and Meta Pixel are shared with the
+// Chance page behavior. Registration, LINE handoff and Meta Pixel are shared with the
 // current page through ./registration.mjs (imported once here, so it mounts once).
 import {REGISTRATION} from './registration.mjs';
 
@@ -35,28 +35,11 @@ function tick() {
 }
 tick(); timer = setInterval(tick, 1000);
 
-// Section tabs: highlight the section currently being read.
-const tabs = [...document.querySelectorAll('.tabs a')];
-const sections = tabs.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-const tabsRow = document.querySelector('.tabs-row');
-function setActive(id) {
-  tabs.forEach(a => {
-    if (a.getAttribute('href') !== '#' + id) { a.removeAttribute('aria-current'); return; }
-    a.setAttribute('aria-current', 'true');
-    // Keep the active tab visible inside the horizontally scrolling tab bar (mobile).
-    const left = a.offsetLeft - (tabsRow.clientWidth - a.offsetWidth) / 2;
-    tabsRow.scrollTo({left: Math.max(0, left), behavior: 'smooth'});
-  });
-}
-if ('IntersectionObserver' in window) {
-  const seen = new Map();
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => seen.set(e.target.id, e.isIntersecting));
-    const current = sections.find(s => seen.get(s.id));
-    if (current) setActive(current.id);
-  }, {rootMargin: '-120px 0px -55% 0px'});
-  sections.forEach(s => io.observe(s));
-}
+// Phones snap from block to block (see styles.css). While someone is typing in the form the
+// on-screen keyboard moves the page, so snapping is switched off until the field loses focus.
+const form = document.querySelector('#registration-form');
+form.addEventListener('focusin', e => { if (e.target.matches('input')) document.documentElement.classList.add('snap-off'); });
+form.addEventListener('focusout', () => document.documentElement.classList.remove('snap-off'));
 
 // Mobile bar: show only when neither the hero nor the registration card is on screen.
 const bar = document.querySelector('.mobile-bar');
@@ -66,7 +49,7 @@ if ('IntersectionObserver' in window) {
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => visible.set(e.target, e.isIntersecting));
     bar.classList.toggle('visible', !watch.some(el => visible.get(el)));
-  });
+  }, {rootMargin: '-1px 0px'}); // snapped blocks sit edge to edge; a block that only touches the screen edge is not "on screen"
   watch.forEach(el => io.observe(el));
 }
 

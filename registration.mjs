@@ -91,7 +91,7 @@ export function mountRegistration() {
     try {
       const data = await client.config();
       if (!availableSession(data)) { status.textContent = '本場目前未開放報名或已截止。'; retry.hidden = false; return; }
-      config = data; submit.disabled = false; status.textContent = '填寫姓名與電話，送出後自動開啟 LINE 加入好友，接收報名確認與提醒。';
+      config = data; submit.disabled = false; status.textContent = status.dataset.readyMessage ?? '填寫姓名與電話，送出後自動開啟 LINE 加入好友，接收報名確認與提醒。'; // a page can set data-ready-message ("" hides it)
     } catch { status.textContent = '暫時無法載入場次，請重新載入。'; retry.hidden = false; }
   }
   retry.addEventListener('click', () => { if (!busy) void load(); });

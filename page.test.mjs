@@ -1,8 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readFileSync, existsSync} from 'node:fs';
 const read = f => readFileSync(new URL(f, import.meta.url), 'utf8');
-const html = read('./index.html'), app = read('./app.js');
+const html = read('./index.html'), app = read('./app.js'), css = read('./styles.css');
 
 test('the main page keeps the shared registration form contract used by ./registration.mjs', () => {
   assert.match(html, /<form id="registration-form">/);
@@ -24,7 +24,25 @@ test('offer numbers ship empty until real figures are provided', () => {
   assert.match(html, /id="offer-attendees" hidden/);
 });
 
-test('every tab points at an existing section', () => {
-  const tabs = [...html.matchAll(/<a href="#([a-z]+)">/g)].map(m => m[1]);
-  for (const id of ['intro','learn','voices','cases','mentor','faq']) assert.ok(tabs.includes(id) && html.includes(`id="${id}"`), id);
+test('every in-page link points at an existing section', () => {
+  const targets = [...html.matchAll(/href="#([a-z-]+)"/g)].map(m => m[1]);
+  assert.ok(targets.includes('enroll'));
+  for (const id of targets) assert.ok(html.includes(`id="${id}"`), id);
+});
+
+test('every image the page shows exists in the repo', () => {
+  const srcs = [...html.matchAll(/<img[^>]*\ssrc="([^"]+)"/g)].map(m => m[1]);
+  assert.ok(srcs.filter(s => s.startsWith('assets/partners/')).length === 14, 'all 14 partner logos are on the page');
+  for (const src of srcs) assert.ok(existsSync(new URL(src, import.meta.url)), src);
+  assert.doesNotMatch(html, /預留合作廠商LOGO區/);
+});
+
+test('phones snap block by block; desktop does not', () => {
+  const phone = css.slice(css.indexOf('@media (max-width:767px)'));
+  assert.match(phone, /html\{scroll-snap-type:y mandatory/);
+  assert.match(phone, /\.snap\{[^}]*scroll-snap-align:start/);
+  assert.doesNotMatch(css.slice(0, css.indexOf('@media (max-width:767px)')), /scroll-snap-type/);
+  // The registration block must be reachable by snapping, and typing must suspend snapping.
+  assert.match(html, /class="section enroll snap" id="enroll"/);
+  assert.match(app, /classList\.add\('snap-off'\)/);
 });
