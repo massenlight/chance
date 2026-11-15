@@ -41,6 +41,35 @@ const form = document.querySelector('#registration-form');
 form.addEventListener('focusin', e => { if (e.target.matches('input')) document.documentElement.classList.add('snap-off'); });
 form.addEventListener('focusout', () => document.documentElement.classList.remove('snap-off'));
 
+// In-page links (免費報名 buttons, the scroll cue, the logo). With mandatory snapping, a smooth
+// jump across many blocks can stop at the first block it passes (iPhone Safari especially), so
+// snapping is paused for the jump and switched back on once the page has stopped moving.
+const root = document.documentElement;
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let resume = 0;
+document.addEventListener('click', event => {
+  const link = event.target.closest('a[href^="#"]');
+  if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  const id = link.getAttribute('href').slice(1);
+  const target = id && document.getElementById(id);
+  if (!target) return;
+  event.preventDefault();
+  clearTimeout(resume);
+  root.classList.add('snap-paused');
+  const behavior = reduceMotion.matches ? 'auto' : 'smooth';
+  if (id === 'top') window.scrollTo({top: 0, behavior});
+  else target.scrollIntoView({behavior, block: 'start'});
+  if (location.hash !== '#' + id) history.pushState(null, '', '#' + id);
+  let last = NaN, still = 0;
+  const started = Date.now();
+  const check = () => {
+    if (Math.abs(window.scrollY - last) < 1) still += 1; else { still = 0; last = window.scrollY; }
+    if (still >= 5 || Date.now() - started > 4000) { root.classList.remove('snap-paused'); return; }
+    resume = setTimeout(check, 60);
+  };
+  resume = setTimeout(check, 150);
+});
+
 // Mobile bar: show only when neither the hero nor the registration card is on screen.
 const bar = document.querySelector('.mobile-bar');
 const watch = [document.querySelector('.hero'), document.querySelector('#enroll')];
