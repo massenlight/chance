@@ -45,4 +45,7 @@ test('phones snap block by block; desktop does not', () => {
   // The registration block must be reachable by snapping, and typing must suspend snapping.
   assert.match(html, /class="section enroll snap" id="enroll"/);
   assert.match(app, /classList\.add\('snap-off'\)/);
+  // In-page jumps (免費報名 buttons) pause snapping so they are not stopped at the first block.
+  assert.match(app, /classList\.add\('snap-paused'\)/);
+  assert.match(css, /html\.snap-off,html\.snap-paused\{scroll-snap-type:none\}/);
 });
