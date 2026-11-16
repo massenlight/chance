@@ -47,5 +47,9 @@ test('phones snap block by block; desktop does not', () => {
   assert.match(app, /classList\.add\('snap-off'\)/);
   // In-page jumps (免費報名 buttons) pause snapping so they are not stopped at the first block.
   assert.match(app, /classList\.add\('snap-paused'\)/);
-  assert.match(css, /html\.snap-off,html\.snap-paused\{scroll-snap-type:none\}/);
+  assert.match(css, /html\.snap-off,html\.snap-paused,html\.snap-hold\{scroll-snap-type:none\}/);
+  // Landing visitors stay on the first screen until they interact.
+  assert.match(html, /scrollRestoration='manual'/);
+  assert.match(html, /classList\.add\('snap-hold'\)/);
+  assert.match(app, /classList\.remove\('snap-hold'\)/);
 });
