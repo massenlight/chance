@@ -41,6 +41,25 @@ const form = document.querySelector('#registration-form');
 form.addEventListener('focusin', e => { if (e.target.matches('input')) document.documentElement.classList.add('snap-off'); });
 form.addEventListener('focusout', () => document.documentElement.classList.remove('snap-off'));
 
+// Visitors (e.g. from an ad) land on the first screen. Some in-app browsers re-snap or restore a
+// scroll position while the page is still loading and end up at the bottom, so until the visitor
+// first touches, clicks, scrolls with a wheel or presses a key, snapping stays off (html.snap-hold,
+// set in index.html) and any scroll that happens on its own is put back to the top. A #hash in the
+// landing URL is ignored for the same reason.
+if (document.documentElement.classList.contains('snap-hold')) {
+  const userEvents = ['touchstart', 'pointerdown', 'wheel', 'keydown'];
+  const keepTop = () => { if (window.scrollY !== 0) window.scrollTo(0, 0); };
+  const release = () => {
+    document.documentElement.classList.remove('snap-hold');
+    window.removeEventListener('scroll', keepTop);
+    userEvents.forEach(type => window.removeEventListener(type, release, true));
+  };
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+  keepTop();
+  window.addEventListener('scroll', keepTop, {passive: true});
+  userEvents.forEach(type => window.addEventListener(type, release, {capture: true, passive: true}));
+}
+
 // In-page links (免費報名 buttons, the scroll cue, the logo). With mandatory snapping, a smooth
 // jump across many blocks can stop at the first block it passes (iPhone Safari especially), so
 // snapping is paused for the jump and switched back on once the page has stopped moving.
@@ -59,7 +78,7 @@ document.addEventListener('click', event => {
   const behavior = reduceMotion.matches ? 'auto' : 'smooth';
   if (id === 'top') window.scrollTo({top: 0, behavior});
   else target.scrollIntoView({behavior, block: 'start'});
-  if (location.hash !== '#' + id) history.pushState(null, '', '#' + id);
+  // The address bar stays https://massenlight.github.io/chance/ (no #enroll added).
   let last = NaN, still = 0;
   const started = Date.now();
   const check = () => {
